@@ -1,0 +1,198 @@
+tProtoPerms = {
+	[1] = {
+		[0] = true, [1] = true, [2] = true, [3] = true, [4] = false, [5] = false, [-1] = false;
+	},
+	[2] = {
+		[0] = true, [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [-1] = true;
+	},
+	[3] = {
+		[1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [0] = true, [-1] = false,
+	},
+	[4] = {
+		[1] = {
+			[1] = false, [2] = true, [3] = true, [4] = true, [5] = true, [0] = false, [-1] = true,
+		},
+		[2] = {
+			[1] = false, [2] = false, [3] = true, [4] = true, [5] = true, [0] = false, [-1] = true,
+		},
+		[3] = {
+			[1] = false, [2] = false, [3] = false, [4] = true, [5] = true, [0] = false, [-1] = true,
+		},
+		[4] = {
+			[1] = false, [2] = false, [3] = false, [4] = false, [5] = false, [0] = false, [-1] = true,
+		},
+		[0] = {
+			[1] = false, [2] = true, [3] = true, [4] = true, [5] = true, [0] = false, [-1] = true,
+		},
+		[5] = {
+			[1] = false, [2] = false, [3] = false, [4] = false, [5] = false, [0] = false, [-1] = false,
+		},
+	}
+}
+
+tCommandArrivals = {
+	--[[
+		Guide:
+			1 == Op only command.
+			2 == All
+			3 == Reg-only
+			4 == Generic Multi-dimension
+	]]
+	bsshelp = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - displays this very message (generated dynamically so sort order may change).\n";
+	},
+	regon = {
+		Permissions = tProtoPerms[3],
+		sHelp = " - replies with key statistics regarding registered users.\n";
+	},
+	addreguser = { 
+		Permissions = tProtoPerms[1],
+		sHelp = " <NewUser> <Password> <PriofileName> - Registers new user with given password. Can user 'generatepass' in place of password (credit: Mutor) Try !canreg to check which profiles you can register. \n"
+	},
+	qreg = { 
+		Permissions = tProtoPerms[1],
+		sHelp = " <NewUser> - makes lowest level user, for quick registration purposes.\n"
+	},
+	chuserprof = {
+		Permissions = {
+			[-1] = false, [0] = true, [1] = true, [2] = true, [3] = false, [4] = false, [5] = false;
+		},
+		sHelp = " <UserName> <NewProfile> - changes specified user to new profile, see !canreg first.\n",
+	},
+	delreguser = {
+		Permissions = {
+			[-1] = false, [0] = true, [1] = true, [2] = true, [3] = false, [4] = false, [5] = false,
+		},
+		sHelp = " <UserName> - removes user from the registered users list.\n";
+	},
+	confirmreg = { 
+		Permissions = tProtoPerms[3],
+		sHelp = " There is no helping you with this command.\n";
+	},
+	passwd = { 
+		Permissions = tProtoPerms[3],
+		sHelp = " <NewPassword> - changes your login password to a new one.\n";
+	},
+	regme = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - Places initial registration request.\n";
+	},
+	regstatus = { 
+		Permissions = tProtoPerms[1],
+		sHelp = " - Provides you with vital information to maintain registered user queue.\n";
+	},
+	showreg = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - Gives a list of every user registered in this hub.\n";
+	},
+	me = { 
+		Permissions = tProtoPerms[2],
+		sHelp = " <Message> - Speaks in 3rd person.\n";
+	},
+	topic = {
+		Permissions = tProtoPerms[2],
+		sHelp = " <Topic> - Changes the topic to Topic, omit parements to display topic.\n";
+	},
+	history = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - Displays chat history, to sign up for automatic history upon logon add 'onjoin' parameter.\n";
+	},
+	time = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - Displays hub's local time, time zone included! (credit: Mutor)\n";
+	},	
+	showtopic = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - Same behavior as topic without an argument. Displays topic.\n";
+	},
+	joinstatus = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - Displays the current joins\parts settings for each user\n";
+	},
+	chjoinmsg = {
+		Permissions = tProtoPerms[3],
+		sHelp = " <Message> - Changes join message to Message. Use with no arguments to change back to default.\n";
+	},
+	joinmsg = {
+		Permissions = tProtoPerms[3],
+		sHelp = " <UserName> - Toggles joins\parts off for specified user. User name is optional, without it toggles your own.\n";
+	},
+	banreason = {
+		Permissions = tProtoPerms[2],
+		sHelp = " <UserName> or <IP> - Displays information on specific user bans.\n";
+	},
+	warn = {
+		Permissions = tProtoPerms[2],
+		sHelp = " <UserName> <Reason> - Fires a warning message directly from you to the user. Reason is optional.\n";
+	},
+	mmreg = {
+		Permissions = {
+			[-1] = false, [0] = true, [1] = true, [2] = true, [3] = true, [4] = true, [5] = false,
+		},
+		sHelp = " <Message> - Sends message in PM to all registered users.\n";
+	},
+	ssgo = {
+		Permissions = {
+			[-1] = false, [0] = true, [1] = true, [2] = false, [3] = false, [4] = false, [5] = false,
+		},
+	},
+	go = {
+		Permissions = {
+			[-1] = false, [0] = true, [1] = true, [2] = true, [3] = false, [4] = false, [5] = false,
+		},
+		sHelp = " <UserName> - Quickly disconnects a user without saying anything to them or the public. Shows up in your op chat.\n";
+	},
+	mimic = {
+		Permissions = {
+			[-1] = false,  [0] = true, [1] = false, [2] = false, [3] = false, [4] = false, [5] = false,
+		},
+		sHelp = " <Message> - Displays message raw (without a nick) in main, try it out.\n";
+	},
+	saypm = {
+		Permissions = {
+			[-1] = false, [0] = true,  [1] = true, [2] = true, [3] = false, [4] = false, [5] = false,
+		},
+		sHelp = " <Recipient> <FakeSender> <Message> - Masquerade as another user in PM. You can't see what replies you get though.....\n";
+	},
+	say = {
+		Permissions = tProtoPerms[1],
+		sHelp = " <FakeSender> <Message> - Masquerade as another user in main.\n";
+	},
+	getgags = {
+		Permissions = tProtoPerms[1],
+		sHelp = " - Provides a list of gagged users and their times.\n";
+	},
+	canreg = {
+		Permissions = tProtoPerms[1],
+		sHelp = " - Provides a list of the profiles you can register users as.\nl ";
+	};
+	tempgag = {
+		Permissions = tProtoPerms[4],
+		sHelp = " <UserName> <Amount><TimeFormat> - gags a user for the specified amount of time formats are single letters (s,m,h,d,w,M,y).\n";
+	},
+	gag = {
+		Permissions = tProtoPerms[4],
+		sHelp = " <UserName> - gags a user until they are ungagged.\n";
+	},
+	ungag = {
+		Permissions = tProtoPerms[4],
+		sHelp = " <UserName> - removes user from the gag list, see getgags to know who is gagged.\n";
+	},
+	nick = {
+		Permissions = tProtoPerms[3],
+		sHelp = " <Alias> - Changes your nick in chat to Alias until you change it back. Omit argument to default.\n";
+	},
+	aliasstatus = {
+		Permissions = tProtoPerms[2], 
+		sHelp = " - Displays a list of all user's current aliases.\n";
+	},
+	killalias = {
+		Permissions = tProtoPerms[1],
+		sHelp = " <UserName> or <Alias> - Changes user to their default nick.\n";
+	},
+	noalias = {
+		Permissions = tProtoPerms[2],
+		sHelp = " - Toggles chat to display only real user names. Also used to toggle back.\n";
+	}
+}

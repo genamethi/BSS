@@ -1,0 +1,65 @@
+BSS = {
+	["WlcBot"] = {
+		["tNoWlc"] = {
+			["sweet91"] = true,
+			["on"] = true,
+			["CacklingGoblinX"] = true,
+			["×"] = true,
+			["stroncium128"] = true,
+			["darkndwolf"] = true,
+			["off"] = true,
+			["amenay"] = true,
+			["Scooch"] = true,
+			["Nox"] = true,
+			["Darkndwolf"] = true,
+			["Loki"] = true,
+			["IChrisI"] = true,
+		}
+,
+		["tWlc"] = {
+			["PsykoLogikal146"] = "hello. Your room is ready hurr|",
+			["Seta2501"] = "Hi Seta.|",
+			["macro"] = "macro has arrived and is reclaiming his snowball bunker.|",
+		}
+,
+	}
+,
+	["GagBot"] = {
+		["tGagged"] = {
+			["sss__o_o__sss"] = true,
+			["[usa]joel"] = true,
+			["#snowball"] = true,
+		}
+,
+		["tTimedGag"] = {
+		}
+,
+	}
+,
+	["ShowHistory"] = {
+		["Sam"] = true,
+		["Shade"] = true,
+		["Zenedra"] = true,
+		["Orac"] = true,
+		["gudrutis"] = true,
+		["Scorpio-BR"] = true,
+		["koteg"] = true,
+		["SwooshyCueb"] = true,
+		["Oztours@home"] = true,
+		["[NERV]333"] = true,
+		["cosmers"] = true,
+		["macro"] = true,
+		["yuiop"] = true,
+		["Dint"] = true,
+		["SNOTCO"] = true,
+		["Orac-ojisan"] = true,
+		["Seta2501"] = true,
+		["amenay"] = true,
+		["Sadaiyappan"] = true,
+		["Gpilot06"] = true,
+		["Nox"] = true,
+		["(ADSL)chainblade"] = true,
+		["The_murstein"] = true,
+	}
+,
+}
