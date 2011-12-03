@@ -423,28 +423,20 @@ function CanReg( iProfile )
 	return AvailProfs;
 end
 -------
--- function doHistory( buff, e, s )
-	-- local first = buff.Counter;
-	-- setmetatable( buff, { __index = function( t, n ) return t[ math.abs( n ) ] end } );
-	-- e, s = e or 1, s or ( first >= 50 and 50 or first );
-	-- e, s = e < 0 and e or e - first - 1, s < 0 and s or s - first - 1;
-	-- e, s = e > first and first or e, s > first and first or s;
-	-- local ret = "Here follows lines x - y of chat\n\n";
-	--local ret = "Here follows lines " .. s .. " - "  .. e .. " of chat\n\n";
-	-- local date = os.date;
-	-- sim.print( e, s )
-	-- for n = s, e, s > e and -1 or 1 do
-		-- ret = ret .. "[" .. date( "%x %X", buff[ n ][1] ) .. "] " .. buff[ n ][2] .. "\n";
-	-- end
-	-- return ret;
--- end
-function doHistory( )
-	local ret = "The last " .. ChatHistory.Counter .. " lines of chat\n\n";
-	for i = ChatHistory.Counter, 1, -1 do
-		ret = ret .. "[" .. os.date( "%c", ChatHistory[ i ][1] ) .. "] " .. ChatHistory[ i ][2] .. "\n";
+function doHistory( buff, e, s )
+	local first = buff.Counter;
+	setmetatable( buff, { __index = function( t, n ) return t[ math.abs( n ) ] end } );
+	e, s = e or 1, s or ( first >= 50 and 50 or first );
+	e, s = e > 0 and e or first + e - 1, s > 0 and s or first + s - 1;
+	e, s = e > first and first or e, s > first and first or s;
+	local ret = "Here follows lines " .. e .. " - "  .. s .. " of chat\n\n";
+	local date = os.date;
+	for n = s, e, s > e and -1 or 1 do
+		ret = ret .. "[" .. date( "%x %X", buff[ n ][1] ) .. "] " .. buff[ n ][2] .. "\n";
 	end
 	return ret;
 end
+
 --------
 function doTime( ) --copied mostly from a function by Mutor.
 	local os = os;
@@ -527,9 +519,9 @@ end
 tCommandArrivals.history.subroutine = doHistory;
 --Misc Basic
 function tCommandArrivals.history:Action( tUser, sMsg )
-	-- local opt, i, j = sMsg:match "^(%a*)%s?(%d+)%s+(%d+)";
-	-- i, j = tonumber( i ), tonumber( j );
-	if sMsg:sub( 1, -2 ) == "onjoin" then --Extend the ShowHistory object to support custom length to onjoin history
+	local opt, i, j = sMsg:match "^(%a*)%s?(%d+)%s+(%d+)";
+	i, j = tonumber( i ), tonumber( j );
+	if opt == "onjoin" then --Extend the ShowHistory object to support custom length to onjoin history
 		if BSS.ShowHistory[ tUser.sNick ] then
 			BSS.ShowHistory[ tUser.sNick ] = nil;
 			return true, "*** You will no longer receive history onjoin.\124";
@@ -538,7 +530,7 @@ function tCommandArrivals.history:Action( tUser, sMsg )
 			return true, "*** You will now receive history automatically upon rejoining the hub.\124"
 		end
 	end
-	return true, doHistory( ChatHistory);
+	return true, doHistory( ChatHistory, i, j );
 end
 
 function tCommandArrivals.time:Action ( )
