@@ -18,18 +18,17 @@ Add incremental warn.
 Add User toggle for opchat alerts (regme, pmspam)
 Add custom parts messages.
 Reload permissions.
-!help which shows only commands available.
 usercommands
 
 --]]
 require "sim";
 
+tRegStatus = { };
 ChatHistory = { };
 HistoryLines = 150;
 for i = 1, HistoryLines do ChatHistory[ i ] = { } end
 ChatHistory.Counter = 0;
 
-tRegStatus = { };
 -- Todo: Look into non-global ways to express ChatHistory and HistoryLines, consider using a closure to express the counter.
 -- Todo: RegStatus needs to handle all events that pertain to registered users
 
@@ -149,7 +148,7 @@ function OnStartup( )
 	math.randomseed( os.time( ) );
 	TmrMan.AddTimer( math.random( 60000, 300000 ), "SeedGen" );
 	setmetatable( tCommandArrivals, {
-		__index = { --this creates command aliases. I think(?) the syntax is self-explanatory. It's fairly fool-proof, give it a shot.
+		__index = { --this creates command aliases. The syntax is self-explanatory. It's fairly fool-proof, give it a shot.
 			js = tCommandArrivals.joinstatus,
 			chjm = tCommandArrivals.chjoinmsg,
 			br = tCommandArrivals.banreason;
@@ -348,7 +347,7 @@ function ToArrival( tUser, sData )
 		end
 	end
 	if tUser.iProfile == -1 then
-		local match = sData:match( "%w+:////%S+", nInitIndex ) or sData:match( "www%.%S+", nInitIndex );
+		local match = sData:match( "%w+%:%/%/%S+", nInitIndex ) or sData:match( "www%.%S+", nInitIndex );
 		if match then
 			Core.SendPmToUser( tUser, sHBName, "PMs containing URLs may not be sent by unregistered users, URL blocked and forwarded to our operators.\124" );
 			Core.SendPmToOps( sOCName, tUser.sNick .. ", an unregistered user, sent a PM to " .. sToUser .. " which contained the URL: " .. match );
@@ -423,20 +422,73 @@ function CanReg( iProfile )
 	return AvailProfs;
 end
 -------
-function doHistory( buff, e, s )
+--[[
+
+FIFO array.
+
+...ChatHistory
+
+With a preset amount of indices. 
+
+Starts with iHistoryLines amount of entries, but they're empty until that many chat messages have been sent.
+
+The only way to reliable way to get the count of ChatHistory entries is ChatHistory.Counter.
+
+The greatest number message will be the oldest message.
+
+The lowest number message will be the newest.
+
+About doHistory.
+
+We want this function to be able to take any object of this type and two integers and return the range specified.
+
+Positive integers represent the placement order of messages sent in chat. 1-iHistoryLines (anything higher defaults to iHistoryLines).
+However we have to keep in mind that this is first in/first out. (See Lines 13,15)
+
+Negative integers represent the reverse placement order in absolute values, so, -1 is the last message sent -HistoryLines is the first.
+
+The fun begins.
+
+]]
+
+
+function doHistory( buff, s, e )
 	local first = buff.Counter;
-	setmetatable( buff, { __index = function( t, n ) return t[ math.abs( n ) ] end } );
-	e, s = e or 1, s or ( first >= 50 and 50 or first );
-	e, s = e > 0 and e or first + e - 1, s > 0 and s or first + s - 1;
-	e, s = e > first and first or e, s > first and first or s;
-	local ret = "Here follows lines " .. e .. " - "  .. s .. " of chat\n\n";
+	if not s or s == 0 then
+		s = first;
+	elseif s < 0 then
+		if math.abs( s ) > first then
+			s = first;
+		else
+			s = math.abs( s );
+		end
+	elseif s > first then
+		s = 1;
+	else
+		s = first - s + 1;
+	end
+
+	if not e or e == 0 then
+		e = 1
+	elseif e < 0 then
+		if math.abs( e ) > first then
+			e = first;
+		else
+			e = math.abs( e );
+		end
+	elseif e > first then
+		e = 1;
+	else
+		e = first - e + 1;
+	end
+
+	local ret = "Here follows lines " .. first + 1 - s .. " - " .. first + 1 - e .. " of chat\n\n";
 	local date = os.date;
 	for n = s, e, s > e and -1 or 1 do
 		ret = ret .. "[" .. date( "%x %X", buff[ n ][1] ) .. "] " .. buff[ n ][2] .. "\n";
 	end
 	return ret;
 end
-
 --------
 function doTime( ) --copied mostly from a function by Mutor.
 	local os = os;
@@ -814,8 +866,8 @@ function tCommandArrivals.passwd:Action( tUser, sMsg )
 	end
 end
 
-function tCommandArrivals.canreg:Action( )
-	return true, "You can register users under the following profiles: " .. CanReg():sub( 1, -3 ) .. ". This is not a list used with chuserprof.\124";
+function tCommandArrivals.canreg:Action( tUser )
+	return true, "You can register users under the following profiles: " .. CanReg( tUser.iProfile ):sub( 1, -3 ) .. ". This is not a list used with chuserprof.\124";
 end
 
 function tCommandArrivals.confirmreg:Action( tUser, sMsg )
