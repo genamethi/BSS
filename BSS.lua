@@ -471,7 +471,7 @@ function doHistory( buff, s, e )
 	end
 
 	if not e or e == 0 then
-		e = 1
+		e = 1;
 	elseif e < 0 then
 		if math.abs( e ) > first then
 			e = first;
@@ -573,7 +573,10 @@ end
 tCommandArrivals.history.subroutine = doHistory;
 --Misc Basic
 function tCommandArrivals.history:Action( tUser, sMsg )
-	local opt, i, j = sMsg:match "^(%a-)%s-(%--%d-)%s-(%--%d-)|$";
+	local opt, i, j = sMsg:match "^%s*(%a-)%s*(%-?%d*)%s*(%--%d-)%s*|$";
+	if sMsg:match( "%S+%s*|$" ) and #opt == 0 and #i == 0 and #j == 0 then
+		return true, self.sHelp;
+	end
 	i, j = tonumber( i ), tonumber( j );
 	if opt == "onjoin" then --Extend the ShowHistory object to support custom length to onjoin history
 		if BSS.ShowHistory[ tUser.sNick ] then
