@@ -80,7 +80,7 @@ fAlias = Core.GetPtokaXPath() .. "scripts/data/tbl/fAlias.tbl";
 bNoAlias = true;
 
 function OnStartup( )
-	sim.hook_OnStartup( { "#BSSIM", "PtokaX Lua interface via ToArrival", "", true }, { "amenay", "generic" } );
+	sim.hook_OnStartup( { "#BSSIM", "PtokaX Lua interface via ToArrival", "", true }, { "amenay", "Generic" } );
 	--sim.imode( Core.GetUser "amenay" )
 	local sPath = Core.GetPtokaXPath();
 --~ 	file = sim.macro(
@@ -269,8 +269,7 @@ function RevConnectToMeArrival( tUser, sData )
 	end
 end
 
-function UserConnected( tUser )
-	--Core.SendToUser( tUser, sFromHB .. doHistory( ChatHistory ) );
+function UserConnected( tUser )	
 	Core.SendToUser( tUser, tSettings[2] );
 end
 
@@ -454,6 +453,9 @@ The fun begins.
 
 function doHistory( buff, s, e )
 	local first = buff.Counter;
+	if first == 0 then
+		return "Sorry, there is no history to be displayed.\124";
+	end
 	if not s or s == 0 then
 		s = first;
 	elseif s < 0 then
@@ -571,7 +573,7 @@ end
 tCommandArrivals.history.subroutine = doHistory;
 --Misc Basic
 function tCommandArrivals.history:Action( tUser, sMsg )
-	local opt, i, j = sMsg:match "^(%a*)%s?(%d+)%s+(%d+)";
+	local opt, i, j = sMsg:match "^(%a-)%s-(%--%d-)%s-(%--%d-)|$";
 	i, j = tonumber( i ), tonumber( j );
 	if opt == "onjoin" then --Extend the ShowHistory object to support custom length to onjoin history
 		if BSS.ShowHistory[ tUser.sNick ] then
@@ -582,7 +584,7 @@ function tCommandArrivals.history:Action( tUser, sMsg )
 			return true, "*** You will now receive history automatically upon rejoining the hub.\124"
 		end
 	end
-	return true, doHistory( ChatHistory, i, j );
+	return true, self.subroutine( ChatHistory, i, j );
 end
 
 function tCommandArrivals.time:Action ( )
