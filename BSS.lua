@@ -574,7 +574,7 @@ tCommandArrivals.history.subroutine = doHistory;
 --Misc Basic
 function tCommandArrivals.history:Action( tUser, sMsg )
 	local opt, i, j = sMsg:match "^%s*(%a-)%s*(%-?%d*)%s*(%--%d-)%s*|$";
-	if sMsg:match( "%S+%s*|$" ) and #opt == 0 and #i == 0 and #j == 0 then
+	if sMsg:match( "%S+%s*|$" ) and not opt and not i and not j then
 		return true, self.sHelp;
 	end
 	i, j = tonumber( i ), tonumber( j );
