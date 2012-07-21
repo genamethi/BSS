@@ -149,12 +149,13 @@ function OnStartup( )
 	TmrMan.AddTimer( math.random( 60000, 300000 ), "SeedGen" );
 	setmetatable( tCommandArrivals, {
 		__index = { --this creates command aliases. The syntax is self-explanatory. It's fairly fool-proof, give it a shot.
-			js = tCommandArrivals.joinstatus,
-			chjm = tCommandArrivals.chjoinmsg,
+			js = tCommandArrivals.joinstatus;
+			chjm = tCommandArrivals.chjoinmsg;
 			br = tCommandArrivals.banreason;
 			qr = tCommandArrivals.qreg;
 			as = tCommandArrivals.aliasstatus;
 			ka = tCommandArrivals.killalias;
+			b = tCommandArrivals.broad;
 		},
 	} );
 	setmetatable( tTimeTranslate, {
@@ -605,6 +606,11 @@ function tCommandArrivals.topic:Action ( tUser, sMsg )
 	if #sMsg < 1 then
 		return self:subroutine( tUser, sMsg );
 	end
+end
+
+function tCommandArrivals.broad:Action( tUser, sMsg )
+	Core.SendToNick( "broad", "<" .. tUser.sNick .. "> " .. sMsg );
+	return true;
 end
 
 tCommandArrivals.topic.subroutine = tCommandArrivals.showtopic.Action;
