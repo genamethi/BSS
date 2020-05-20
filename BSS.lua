@@ -81,7 +81,6 @@ bNoAlias = true;
 
 function OnStartup( )
 	sim.hook_OnStartup( { "#BSSIM", "PtokaX Lua interface via ToArrival", "", true }, { "amenay", "Generic" } );
-	--sim.imode( Core.GetUser "amenay" )
 	local sPath = Core.GetPtokaXPath();
 --~ 	file = sim.macro(
 --~ 		{ 
@@ -126,7 +125,7 @@ function OnStartup( )
 	RegOnly = { DownloadKey = { }, TimeOut = { }; };
 	
 	
-	tSettings = {
+	tSettings = { --Just make a settings files or a strings file. DO something
 		[1] = "^[" .. ( SetMan.GetString( 29 ):gsub( ( "%p" ), function ( p ) return "%" .. p end ) ) .. "]",
 		[2] = [[
 
