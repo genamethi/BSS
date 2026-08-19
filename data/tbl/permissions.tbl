@@ -32,11 +32,11 @@ tProtoPerms = {
 
 tCommandArrivals = {
 	--[[
-		Guide:
+		Guide to tProtoPerms:
 			1 == Op only command.
 			2 == All
 			3 == Reg-only
-			4 == Generic Multi-dimension
+			4 == Generic Multi-dimension (for source/target commands)
 	]]
 	bsshelp = {
 		Permissions = tProtoPerms[2],

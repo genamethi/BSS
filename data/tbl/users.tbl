@@ -1,0 +1,22 @@
+BSS = {
+	["WlcBot"] = {
+		["tNoWlc"] = {
+		}
+		["tWlc"] = {
+		}
+,
+	}
+,
+	["GagBot"] = {
+		["tGagged"] = {
+		}
+,
+		["tTimedGag"] = {
+		}
+,
+	}
+,
+	["ShowHistory"] = {
+	}
+,
+}
