@@ -32,29 +32,27 @@ Add sReason and sBy to TimedAssign and Assign actions. Notification sending to u
 ?usercommands?
 
 --]]
-require("sim")
+local bUseSim = false
 
-tRegStatus = {}
-ChatHistory = {}
-HistoryLines = 150
+if bUseSim then
+	sim = require("sim")
+end
+
+--For the registration process.
+--
+--TODO: Document different statuses
+--TODO: RegStatus needs to handle all events that pertain to registered users
+local tRegStatus = {}
+
+--History Defs
+local ChatHistory = {}
+local HistoryLines = 150
 for i = 1, HistoryLines do
 	ChatHistory[i] = {}
 end
 ChatHistory.Counter = 0
 
--- Todo: Look into non-global ways to express ChatHistory and HistoryLines, consider using a closure to express the counter.
--- Todo: RegStatus needs to handle all events that pertain to registered users
-
-tWlcMsg = { --Setting
-
-	[0] = [[Anime Hotel's proprietor, nick, has entered the lobby.|]], --Master
-	[1] = [[Please give genteel welcome to our honoured guest, nick.|]],
-	[2] = [[Cease all other activities and bow for Senior-Op, nick.|]],
-	[3] = [[Everyone please give welcome to nick, one of our respected personnel.|]], -- Operator
-	[4] = [[Welcome nick! Your room is ready, please enjoy your stay.|]], -- VIP
-	[5] = nil, --Reg
-}
-
+--FIXME: This should be in a time based module
 tTimeTranslate = {
 	s = { 1000, " second(s)", 1e+015 },
 	m = { 60000, " minute(s)", 16666666666667 },
@@ -65,7 +63,7 @@ tTimeTranslate = {
 	y = { 512640 * 60000, " year(s)", 32511444.028298 },
 }
 
-do
+do --maybe init()
 	local f, e = assert(
 		loadfile(Core.GetPtokaXPath() .. "scripts/data/tbl/BSS Permissions.tbl"),
 		"*** BSS Permissions table not found, stopping script."
@@ -76,9 +74,13 @@ do
 	sPre = "^[" .. GetString(29):gsub("%p", function(p)
 		return "%" .. p
 	end) .. "]"
-	sHBName = GetString(21)
-	sOCName = GetString(24)
+	local sHBName = GetString(21)
+	local sOCName = GetString(24)
 
+	sFromHB = "<" .. sHBName .. "> "
+	sFromOC = "<" .. sOCName .. "> "
+
+	--Build case-sensitve check to prevent bot impersonation with !nick
 	local tTmp = Core.GetBots()
 	table.insert(tTmp, sHBName)
 	table.insert(tTmp, sOCName)
@@ -88,32 +90,15 @@ do
 	tReserved = tTmp
 end
 
-sLocation = Core.GetPtokaXPath() .. "scripts/data/tbl/BSS Users.tbl"
-sFromHB = "<" .. sHBName .. "> "
-sFromOC = "<" .. sOCName .. "> "
-sBlockedMsg = sFromHB .. "*** You must be registered to search or download in this hub. Check !reginfo\124"
-fAlias = Core.GetPtokaXPath() .. "scripts/data/tbl/fAlias.tbl"
-bNoAlias = true
-
 function OnStartup()
 	sim.hook_OnStartup({ "#BSSIM", "PtokaX Lua interface via ToArrival", "", true }, { "amenay", "Generic" })
 	local sPath = Core.GetPtokaXPath()
-	--~ 	file = sim.macro(
-	--~ 		{
-	--~ 			perms = "'" .. sPath .. "scripts/data/tbl/BSS Permissions.tbl'",
-	--~ 			ser = "'" .. sPath .. "scripts/data/Serialize.lua'",
-	--~ 			alias = "'" .. sPath .. "scripts/data/tbl/fAlias.tbl",
-	--~ 			users = "'" .. sPath .. "scripts/data/tbl/BSS Users.tbl'";
-	--~ 		},
-	--~ 		"cat "
-	--~ 	)
 	local f = assert(loadfile(Core.GetPtokaXPath() .. "scripts/data/Serialize.lua"))
 	if f then
 		f()
 		f = nil
-		--sim.print "Serialize loaded successfully\124"
 	end
-	local f = assert(loadfile(sLocation))
+	local f = assert(loadfile(sConfPath))
 	if f then
 		f()
 		if not BSS then
@@ -123,7 +108,6 @@ function OnStartup()
 			BSS.WlcBot = { tWlc = {} }
 			BSS.WlcBot.tNoWlc = {}
 			BSS.ShowHistory = {}
-			--sim.print "User status file has not been loaded, re-initiliazing... Redefine to prevent overwrite.\124"
 		end
 		f = nil
 	end
@@ -140,40 +124,8 @@ function OnStartup()
 	UpdateTimedTable(BSS.GagBot.tTimedGag)
 	RegOnly = { DownloadKey = {}, TimeOut = {} }
 
-	tSettings = { --Just make a settings files or a strings file. DO something
-		[1] = "^[" .. (SetMan.GetString(29):gsub("%p", function(p)
-			return "%" .. p
-		end)) .. "]",
-		[2] = [[
-
-
-		You're unregged, read the MOTD to review the restrictions for unregistered users.
-		Then if you're interested in becoming registered read !rules and !shareinfo
-		Then send !regme if you're willing to comply, you must fully agree to the above mentioned documents before sending !regme.
-		Upon recieving the request (our ops are people too; we're not always available), we will check to the best of our abilities
-		that you meet our requirements.
-		Then you will recieve a PM from our hub bot with further instructions. 
-				
-		In short: check the !rules and !shareinfo then type !regme when you have it down.
-				
-		(All text files on this server are subject to change at any time, your client, your responsibility, through and through.)
-	
-		Self reference: !reginfo
-		|]],
-	}
 	math.randomseed(os.time())
 	TmrMan.AddTimer(math.random(60000, 300000), "SeedGen")
-	setmetatable(tCommandArrivals, {
-		__index = { --this creates command aliases. The syntax is self-explanatory. It's fairly fool-proof, give it a shot.
-			js = tCommandArrivals.joinstatus,
-			chjm = tCommandArrivals.chjoinmsg,
-			br = tCommandArrivals.banreason,
-			qr = tCommandArrivals.qreg,
-			as = tCommandArrivals.aliasstatus,
-			ka = tCommandArrivals.killalias,
-			b = tCommandArrivals.broad,
-		},
-	})
 	setmetatable(tTimeTranslate, {
 		__index = function(t, k)
 			local units = { "s", "m", "h", "d", "w", "M", "y" }
@@ -186,10 +138,14 @@ function OnExit()
 	SaveToFile(sLocation, BSS, "BSS", "w+")
 	SaveToFile(fAlias, tAlias, "tAlias", "w+")
 	SaveToFile(fAlias, tNoAlias, "tNoAlias", "a+")
-	sim.hook_OnExit()
+	if bUseSim then
+		sim.hook_OnExit()
+	end
 end
 
-OnError = sim.hook_OnError
+if bUseSim then
+	OnError = sim.hook_OnError
+end
 
 function OnTimer(nTimerId)
 	for i, v in pairs(BSS.GagBot.tTimedGag) do
@@ -344,7 +300,7 @@ function ChatArrival(tUser, sData)
 		sData:match("^is kicking %S+ because:", nInitIndex)
 		or sData:match("^is kicking %S+ because:", nInitIndex + #sNick + 1)
 	then --Why did I want to block kick messages? Aside from side-effects?
-		return false --look at me later. [[Much later... this looks fine... 
+		return false --look at me later. [[Much later... this looks fine...
 	else
 		ChatHistory[HistoryLines][1], ChatHistory[HistoryLines][2], ChatHistory.Counter =
 			(os.time()),
@@ -478,36 +434,7 @@ function CanReg(iProfile)
 	end
 	return AvailProfs
 end
--------
---[[
-
-FIFO array.
-
-...ChatHistory
-
-With a preset amount of indices. 
-
-Starts with iHistoryLines amount of entries, but they're empty until that many chat messages have been sent.
-
-The only way to reliable way to get the count of ChatHistory entries is ChatHistory.Counter.
-
-The greatest number message will be the oldest message.
-
-The lowest number message will be the newest.
-
-About doHistory.
-
-We want this function to be able to take any object of this type and two integers and return the range specified.
-
-Positive integers represent the placement order of messages sent in chat. 1-iHistoryLines (anything higher defaults to iHistoryLines).
-However we have to keep in mind that this is first in/first out. (See Lines 13,15)
-
-Negative integers represent the reverse placement order in absolute values, so, -1 is the last message sent -HistoryLines is the first.
-
-The fun begins.
-
-]]
-
+--Excised log comment -> dohistory.md
 --start -> s, end -> e
 function doHistory(buff, s, e)
 	local first = buff.Counter
@@ -551,6 +478,7 @@ function doHistory(buff, s, e)
 end
 
 --------
+--move to time lib
 function doTime() --copied mostly from a function by Mutor.
 	local os = os
 	local h, m = math.modf((os.time() - os.time(os.date("!*t"))) / 3600)
