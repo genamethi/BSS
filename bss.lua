@@ -98,6 +98,7 @@ function OnStartup()
 		f()
 		f = nil
 	end
+	--better to (a) add error handling, (b) fetch fresh if missing
 	local f = assert(loadfile(sConfPath))
 	if f then
 		f()
@@ -111,6 +112,7 @@ function OnStartup()
 		end
 		f = nil
 	end
+	--This is less of a concern.
 	local f = assert(loadfile(fAlias), fAlias .. " does not exist.")
 	if f then
 		f()
@@ -126,6 +128,8 @@ function OnStartup()
 
 	math.randomseed(os.time())
 	TmrMan.AddTimer(math.random(60000, 300000), "SeedGen")
+
+	--make keying tables by time units convenient
 	setmetatable(tTimeTranslate, {
 		__index = function(t, k)
 			local units = { "s", "m", "h", "d", "w", "M", "y" }
