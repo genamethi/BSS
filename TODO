@@ -1,0 +1,77 @@
+
+
+Organize settings, move to a separate file and make user-configurable.
+Create a general purpose function to open, check, and load ALL the files, if they pass the check, otherwise re-initialize the tables.
+Modularize:
+
+	- Write a command/permissions manager (build in interface for help files)
+	- Separate out functionality Alias, Reg, history, Op functions, join/topic
+	- Modules for aux stuff where possible
+	- Either dynamically generate event functions or carefully document load order and call resspctive functions within
+	- Proposed load order: settings->perms->modules->commands->most events
+	
+Text file management (think I can do this without luafs)
+Add User toggle for opchat alerts (regme, pmspam)
+poll bot
+Opchat bulletin, news
+Add custom parts messages.
+Add incremental warn.
+Log kicks, regs, commands and provide interface
+Add optional reason to gag
+Add sReason and sBy to TimedAssign and Assign actions. Notification sending to user on gag/etc...
+
+
+
+?usercommands?
+
+
+Radical re-org in progress:
+
+cmd module will be separate, possibly entirely separate, but for now, we treat
+it as a pacakge.
+
+Need to make chill's serialize into a module or roll it into a module.
+
+Assess whether Mutor's doTime should be part of my module. 
+
+I want to do a fall through for help command permissions based on inbuilt
+command profile level permissions.
+
+see individual files for other todos. the above were stripped from bss.lua
+directly, and haven't been reviewed for years.
+
+26/09/08 Braindump
+
+I'm stressed, lying on the couch. Worried about moving in such a way that Bean attacks.
+She's not likely to. Just noticed it's light out.
+
+Figured I'd log some thoughts before the next X-Files ep I binge. Before I obssessively
+spend more time worrying about eviction and not working. I really need to work.
+Here she comes. Sweet girl. Cuddled. More time is passing. Another day. I work
+but only for so long. And maybe that's it. Maybe I just need to admit my limits.
+And live by those.
+
+Here's my thought on the script, though:
+
+Basically, what I'm probably thinking of is less like a module, and more like
+a packaging system. Why? Because I want to call the module in order to register
+modules, same for unregistering. And in order to find out where the config files
+are there's a standard search path. For example, for the text commands they
+feature three or four main components (depending on how you scope): The function
+bodies, the auxilary functions and data, permissions, and the help commnd. We
+may count the fifth as the command text itself, which I've often used as a key.
+
+There's more basic ideas like I've noted elsehwere (using bitmasks for
+permissions), but that's more about data types. Either way. The main thing the
+module would have callbacks. A single event arrival wouldn't necessarily even
+be featured in the script that uses this. This would also give more flexibility
+with ordering execution of features.
+
+This could mirror the Lua State and Thread stack in that each arrival itself has
+a corresponding stack. Either we run those through a loop or we compose them.
+Or maybe more simply we could make it so that each command that registers lists
+which events it hooks, whether it blocks, and whether it mutates the data.
+
+The mutating the data part has some complexity to it because clearly you can't
+make the same assumptions after its been mutated, but you can't necessarily rule
+it out either. So, perhaps there's a warning that goes with it.
