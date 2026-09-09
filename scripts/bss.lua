@@ -181,7 +181,9 @@ function RegDisconnected(tUser)
 		end
 		tRegStatus[tUser.uptr] = nil
 	end
-	return sim.hook_UserDisconnected(tUser)
+	if bUseSim then
+		return sim.hook_UserDisconnected(tUser)
+	end
 end
 
 function SearchArrival(tUser, sData) --Search Blocking
@@ -288,8 +290,8 @@ end
 
 function ToArrival(tUser, sData)
 	local sToUser = sData:match("^(%S+)", 6) --these will be in pxcmd now
-	local nInitIndex = #sToUser + 18 + #tUser.sNick * 2 --''
-	sim.hook_ToArrival(tUser, sData, sToUser, nInitIndex) --Works w/o sToUser and nInitIndex.
+	local nInitIndex = #sToUser + 18 + #tUser.sNick * 2
+
 	if sData:match(tSettings[1], nInitIndex) then
 		local cmd = sData:match("^(%w+)", nInitIndex + 1)
 		if cmd then
@@ -306,7 +308,10 @@ function ToArrival(tUser, sData)
 				end
 			end
 		end
+	elseif bUseSim then
+		sim.hook_ToArrival(tUser, sData, sToUser, nInitIndex) --Works w/o sToUser and nInitIndex.
 	end
+	--unregistered
 	if tUser.iProfile == -1 then --URL Blocking.. Add Setting for this, move text into string configure file
 		local match = sData:match("%w+%:%/%/%S+", nInitIndex) or sData:match("www%.%S+", nInitIndex)
 		if match then
@@ -362,7 +367,7 @@ function CanReg(iProfile)
 	end
 	return AvailProfs
 end
---Excised log comment -> dohistory.md
+
 --start -> s, end -> e
 function doHistory(buff, s, e)
 	local first = buff.Counter
@@ -407,11 +412,6 @@ end
 
 --------
 --move to time lib
-function doTime() --copied mostly from a function by Mutor.
-	local os = os
-	local h, m = math.modf((os.time() - os.time(os.date("!*t"))) / 3600)
-	return os.date("%x @ %X") .. " (" .. (h + (60 * m)) .. " UTC)"
-end
 ---------
 function RegLog(tBy, sNick, sProfile)
 	local hFile, sError = io.open(Core.GetPtokaXPath() .. "texts/reglog.txt", "a+")
