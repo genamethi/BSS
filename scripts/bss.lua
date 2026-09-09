@@ -1,10 +1,9 @@
 --[[
 
-Basic script for custom welcome messages w/ toggle, welcome messages per profile, and basic commands.
+Basic PtokaX script for custom welcome messages w/ toggle, welcome messages per profile, and basic commands.
 Each command's permissions is set it's own table within the tCommandArrivals table.
 
-Script: Basic Service Script
-Creator: amenay
+Script: Basic Service Script Creator: amenay
 Touched: 2026.09.04
 
 --]]
