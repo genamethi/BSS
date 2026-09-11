@@ -19,11 +19,9 @@ end
 local tRegStatus = {}
 
 --History Defs
-local ChatHistory = {}
+--We could use a single object, single instance approach to history
 local HistoryLines = 150
-for i = 1, HistoryLines do
-	ChatHistory[i] = {}
-end
+local ChatHistory = table.create(HistoryLines, 1)
 ChatHistory.Counter = 0
 
 do --maybe init()
@@ -339,7 +337,7 @@ function SeedGen(nTimerId)
 end
 --------
 function UpdateTimedTable(TimedTable)
-	for i, v in pairs(TimedTable) do
+	for i in pairs(TimedTable) do
 		TimedTable[i][1], TimedTable[i][2], TimedTable[i][3] =
 			TmrMan.AddTimer(TimedTable[i][2]),
 			TimedTable[i][2] - (os.difftime(os.time(), TimedTable[i][3]) * 1000),
@@ -347,6 +345,7 @@ function UpdateTimedTable(TimedTable)
 	end
 end
 --------
+--Choose how to be nagged.
 function Announce(sMsg)
 	if SetMan.GetBool(29) then
 		if SetMan.GetBool(30) then
@@ -408,9 +407,6 @@ function doHistory(buff, s, e)
 	end
 	return ret
 end
-
---------
---move to time lib
 ---------
 function RegLog(tBy, sNick, sProfile)
 	local hFile, sError = io.open(Core.GetPtokaXPath() .. "texts/reglog.txt", "a+")

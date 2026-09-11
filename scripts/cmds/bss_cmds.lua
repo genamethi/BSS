@@ -1,4 +1,21 @@
 --This could easily just be replaced with bit masks.
+--[[
+  Planned structure.
+tCommandsArrivals = { 
+  cmdkey = { 
+    Permissions = bitmask,
+    Action = function(),
+    sHelp = "string"
+    subroutine = function()
+  }
+}
+
+Let's decide that -1 is the largest bit.
+So, Ops only: 0, 1, 2, 3 all true, and -1, 4, 5 0001111 -> integer: 15
+All -> int: 127
+Reg-only -> int: 63
+Generic multi: {0 = 124, 1 = 124, 2 = 120, 3 = 112, 4 = 64, 5 =  0  } 
+}]]
 
 tProtoPerms = {
 	[1] = {
@@ -20,67 +37,67 @@ tProtoPerms = {
 		[-1] = true,
 	},
 	[3] = {
+		[0] = true,
 		[1] = true,
 		[2] = true,
 		[3] = true,
 		[4] = true,
 		[5] = true,
-		[0] = true,
 		[-1] = false,
 	},
 	[4] = {
-		[1] = {
+		[0] = {
+			[0] = false,
 			[1] = false,
 			[2] = true,
 			[3] = true,
 			[4] = true,
 			[5] = true,
+			[-1] = true,
+		},
+		[1] = {
 			[0] = false,
+			[1] = false,
+			[2] = true,
+			[3] = true,
+			[4] = true,
+			[5] = true,
 			[-1] = true,
 		},
 		[2] = {
+			[0] = false,
 			[1] = false,
 			[2] = false,
 			[3] = true,
 			[4] = true,
 			[5] = true,
-			[0] = false,
 			[-1] = true,
 		},
 		[3] = {
+			[0] = false,
 			[1] = false,
 			[2] = false,
 			[3] = false,
 			[4] = true,
 			[5] = true,
-			[0] = false,
 			[-1] = true,
 		},
 		[4] = {
+			[0] = false,
 			[1] = false,
 			[2] = false,
 			[3] = false,
 			[4] = false,
 			[5] = false,
-			[0] = false,
-			[-1] = true,
-		},
-		[0] = {
-			[1] = false,
-			[2] = true,
-			[3] = true,
-			[4] = true,
-			[5] = true,
-			[0] = false,
 			[-1] = true,
 		},
 		[5] = {
+			[0] = false,
 			[1] = false,
 			[2] = false,
 			[3] = false,
 			[4] = false,
 			[5] = false,
-			[0] = false,
 			[-1] = false,
 		},
 	},
@@ -89,7 +106,7 @@ tProtoPerms = {
 tCommandArrivals = {
 	--[[ --replace with bitmasks
 		Guide to tProtoPerms:
-			1 == Op only command.
+			1 == Op only command. 
 			2 == All
 			3 == Reg-only
 			4 == Generic Multi-dimension (for source/target commands)
@@ -112,13 +129,13 @@ tCommandArrivals = {
 	},
 	chuserprof = {
 		Permissions = {
-			[-1] = false,
 			[0] = true,
 			[1] = true,
 			[2] = true,
 			[3] = false,
 			[4] = false,
 			[5] = false,
+			[-1] = false,
 		},
 		sHelp = " <UserName> <NewProfile> - changes specified user to new profile, see !canreg first.\n",
 	},
@@ -128,13 +145,13 @@ tCommandArrivals = {
 	},
 	delreguser = {
 		Permissions = {
-			[-1] = false,
 			[0] = true,
 			[1] = true,
 			[2] = true,
 			[3] = false,
 			[4] = false,
 			[5] = false,
+			[-1] = false,
 		},
 		sHelp = " <UserName> - removes user from the registered users list.\n",
 	},

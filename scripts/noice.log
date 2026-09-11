@@ -1,0 +1,788 @@
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, ":", 0 } }
+}
+{ 0, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "", 0 } }
+}
+{ 1, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "c", 0 } }
+}
+{ 0, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "", 0 } }
+}
+{ {}, false, false, false, -1, "",
+  event = "msg_show",
+  kind = "empty"
+}
+{ true,
+  event = "cmdline_hide",
+  kind = 1
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, ":", 0 } }
+}
+{ 0, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "", 0 } }
+}
+{ 1, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "l", 0 } }
+}
+{ 2, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lu", 0 } }
+}
+{ 3, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua", 0 } }
+}
+{ 4, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua ", 0 } }
+}
+{ 5, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua L", 0 } }
+}
+{ 6, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua Lu", 0 } }
+}
+{ 7, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua Lua", 0 } }
+}
+{ 6, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua Lu", 0 } }
+}
+{ 5, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua L", 0 } }
+}
+{ 4, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua ", 0 } }
+}
+{ 5, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua p", 0 } }
+}
+{ 6, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua pr", 0 } }
+}
+{ 7, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua pri", 0 } }
+}
+{ 8, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua prin", 0 } }
+}
+{ 9, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print", 0 } }
+}
+{ 10, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print()", 0 } }
+}
+{ 11, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(L)", 0 } }
+}
+{ 12, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lu)", 0 } }
+}
+{ 13, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua)", 0 } }
+}
+{ 14, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.)", 0 } }
+}
+{ 15, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua. )", 0 } }
+}
+{ 14, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.)", 0 } }
+}
+{ false, 1,
+  event = "cmdline_special_char",
+  kind = "w"
+}
+{ 16, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.wo)", 0 } }
+}
+{ 17, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.wor)", 0 } }
+}
+{ 18, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.work)", 0 } }
+}
+{ 19, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.works)", 0 } }
+}
+{ 20, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.worksp)", 0 } }
+}
+{ 21, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspa)", 0 } }
+}
+{ 22, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspac)", 0 } }
+}
+{ 23, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace)", 0 } }
+}
+{ 24, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.)", 0 } }
+}
+{ 23, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace)", 0 } }
+}
+{ 24, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.)", 0 } }
+}
+{ 25, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.l)", 0 } }
+}
+{ 26, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.li)", 0 } }
+}
+{ 27, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.lib)", 0 } }
+}
+{ 28, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.libr)", 0 } }
+}
+{ 29, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.libra)", 0 } }
+}
+{ 30, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.librar)", 0 } }
+}
+{ 31, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "lua print(Lua.workspace.library)", 0 } }
+}
+{ false,
+  event = "cmdline_hide",
+  kind = 1
+}
+{ { { 258, "E5108: Lua: [string \":lua\"]:1: attempt to index global 'Lua' (a nil value)\nstack traceback:\n\t[string \":lua\"]:1: in main chunk", 6 } }, false, true, false, 6, "typed_cmd",
+  event = "msg_show",
+  kind = "lua_error"
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "j", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "k", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "^[", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, "^[", 0 } }
+}
+{
+  event = "msg_showcmd",
+  kind = {}
+}
+{
+  event = "msg_showcmd",
+  kind = { { 0, ":", 0 } }
+}
+{ 0, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "", 0 } }
+}
+{ false, 1,
+  event = "cmdline_special_char",
+  kind = "w"
+}
+{ 2, ":", "", 0, 1, -1,
+  event = "cmdline_show",
+  kind = { { 0, "wq", 0 } }
+}
+{ false,
+  event = "cmdline_hide",
+  kind = 1
+}
+{ { { 0, '"bss.lua" ', 0 } }, false, false, false, 'nvim.bufwrite "bss.lua"', "typed_cmd",
+  event = "msg_show",
+  kind = "progress"
+}
+{ { { 0, '"bss.lua" [dos] 431L, 12238B', 0 } }, false, true, false, 'nvim.bufwrite "bss.lua"', "typed_cmd",
+  event = "msg_show",
+  kind = "progress"
+}
