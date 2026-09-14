@@ -9,7 +9,9 @@ the current tCommandArrivals structure, and provide functionality for:
   ]]
 --
 
-ExecuteCommand = function(tUser, msg, cmd, where)
+local cmd = {}
+
+cmd.execute = function(tUser, msg, cmd, where)
 	local bRet, sMsg, sWhere, sFrom = tCommandArrivals[cmd]:Action(tUser, msg)
 	if sWhere then
 		where = sWhere
@@ -32,3 +34,5 @@ ExecuteCommand = function(tUser, msg, cmd, where)
 		return bRet
 	end
 end
+
+return cmd

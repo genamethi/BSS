@@ -1,4 +1,4 @@
-BSS = {
+local tUserPrefs = {
 	["WlcBot"] = {
 		["tNoWlc"] = {
 		}
@@ -19,4 +19,13 @@ BSS = {
 	["ShowHistory"] = {
 	}
 ,
+  ["tAlias"] = {
+
+  },
+  ["tNoAlias"] = {
+
+  }
 }
+
+return BSS.tUsersPrefs
+
