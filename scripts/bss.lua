@@ -7,39 +7,27 @@ Script: Basic Service Script Creator: amenay
 Touched: 2026.09.04
 
 --]]
-local bUseSim = false
 
-if bUseSim then
-	sim = require("sim")
-end
+local BSS
+local sim
 
 --For the registration process.
 --TODO: Document different statuses
 --TODO: RegStatus needs to handle all events that pertain to registered users
-local tRegStatus = {}
 
 --History Defs
 --We could use a single object, single instance approach to history
-local HistoryLines = 150
-local ChatHistory = table.create(HistoryLines, 1)
-ChatHistory.Counter = 0
+BSS.ChatHistory = table.create(HistoryLines, 1)
+BSS.ChatHistory.Counter = 0
 
-do --maybe init()
-	local f, e = assert(
-		loadfile(Core.GetPtokaXPath() .. "scripts/data/tbl/BSS Permissions.tbl"),
-		"*** BSS Permissions table not found, stopping script."
-	)
-	f() --Todo: What do we really want to do if there is no permissions table?  -- Build one and offer an interface for configuring permissions.
-
+function add_settings()
+	local ret = {}
 	local GetString = SetMan.GetString
-	sPre = "^[" .. GetString(29):gsub("%p", function(p)
-		return "%" .. p
-	end) .. "]"
 	local sHBName = GetString(21)
 	local sOCName = GetString(24)
-
-	sFromHB = "<" .. sHBName .. "> "
-	sFromOC = "<" .. sOCName .. "> "
+	--Most of the time these are concatenated with < and >. So we do it now.
+	ret.sFromHB = "<" .. sHBName .. "> "
+	ret.sFromOC = "<" .. sOCName .. "> "
 
 	--Build case-sensitve check to prevent bot impersonation with !nick
 	local tTmp = Core.GetBots()
@@ -48,49 +36,34 @@ do --maybe init()
 	for i = 1, #tTmp - 2 do
 		tTmp[tTmp[i].sNick:lower()], tTmp[i] = true, nil --What does this acheive? Look at GetBots table
 	end
-	tReserved = tTmp
+	ret.tReserved = tTmp
+	--Should store this in config too
+	ret.bUseSim = false
+	return ret
 end
 
 function OnStartup()
-	sim.hook_OnStartup({ "#BSSIM", "PtokaX Lua interface via ToArrival", "", true }, { "amenay", "Generic" })
+	--two or three functions should be called here
+	--init_table, add_settings, add_userprefs
+	if BSS.bUseSim then
+		sim = require("sim")
+		sim.hook_OnStartup({ "#BSSIM", "PtokaX Lua interface via ToArrival", "", true }, { "amenay", "Generic" })
+	end
 	local sPath = Core.GetPtokaXPath()
-	local f = assert(loadfile(Core.GetPtokaXPath() .. "scripts/data/Serialize.lua"))
-	if f then
-		f()
-		f = nil
-	end
-	--better to (a) add error handling, (b) fetch fresh if missing
-	local f = assert(loadfile(sConfPath))
-	if f then
-		f()
-		if not BSS then
-			BSS = {}
-			BSS.GagBot = { tGagged = {} } --double mrraahhh...
-			BSS.GagBot.tTimedGag = {}
-			BSS.WlcBot = { tWlc = {} }
-			BSS.WlcBot.tNoWlc = {}
-			BSS.ShowHistory = {}
-		end
-		f = nil
-	end
-	--This is less of a concern.
-	local f = assert(loadfile(fAlias), fAlias .. " does not exist.")
-	if f then
-		f()
-		if not tAlias or not tNoAlias then
-			tAlias = {}
-			tNoAlias = {}
-		end
-		f = nil
+	--Maybe I should use the "package" approach with submodules as such (but correctly):
+	BSS.UserPrefs = require(sPath .. "cfg/userprefs.lua")
+	if not BSS.UserPrefs then
+		Core.SendToOps("User preferences file not found. Rename example file or replace data/userprefs.lua")
 	end
 
 	UpdateTimedTable(BSS.GagBot.tTimedGag)
-	RegOnly = { DownloadKey = {}, TimeOut = {} }
+	BSS.tRegOnly = { DownloadKey = {}, TimeOut = {} }
+	BSS.tRegStatus = {}
 
+	sBlockedMsg = sFromHB .. sBlockedMsg
 	math.randomseed(os.time())
-	TmrMan.AddTimer(math.random(60000, 300000), "SeedGen")
-
 	--make keying tables by time units convenient
+	TmrMan.AddTimer(math.random(60000, 300000), "SeedGen")
 end
 
 function OnExit()
@@ -238,7 +211,7 @@ function ChatArrival(tUser, sData)
 			return true
 		end
 	end
-	if sData:match(tSettings[1], nInitIndex) then
+	if sData:match(BSS.sPrefix, nInitIndex) then
 		local cmd = sData:match("^(%w+)", nInitIndex + 1)
 		if cmd then
 			cmd = cmd:lower()
@@ -289,7 +262,7 @@ function ToArrival(tUser, sData)
 	local sToUser = sData:match("^(%S+)", 6) --these will be in pxcmd now
 	local nInitIndex = #sToUser + 18 + #tUser.sNick * 2
 
-	if sData:match(tSettings[1], nInitIndex) then
+	if sData:match(BSS.sPrefix, nInitIndex) then
 		local cmd = sData:match("^(%w+)", nInitIndex + 1)
 		if cmd then
 			cmd = cmd:lower()

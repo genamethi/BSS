@@ -1,0 +1,10 @@
+{
+  "diagnostics.globals": [
+    "vim",
+    "Snacks",
+    "tUser"
+  ],
+  "workspace.userThirdParty": [
+    "/home/erpage159/.local/share/luals/"
+  ]
+}

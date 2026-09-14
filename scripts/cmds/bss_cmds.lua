@@ -1,8 +1,8 @@
 --This could easily just be replaced with bit masks.
 --[[
   Planned structure.
-tCommandsArrivals = { 
-  cmdkey = { 
+tCommandsArrivals = {
+  cmdkey = {
     Permissions = bitmask,
     Action = function(),
     sHelp = "string"
@@ -14,8 +14,9 @@ Let's decide that -1 is the largest bit.
 So, Ops only: 0, 1, 2, 3 all true, and -1, 4, 5 0001111 -> integer: 15
 All -> int: 127
 Reg-only -> int: 63
-Generic multi: {0 = 124, 1 = 124, 2 = 120, 3 = 112, 4 = 64, 5 =  0  } 
+Generic multi: {0 = 124, 1 = 124, 2 = 120, 3 = 112, 4 = 64, 5 =  0  }
 }]]
+local tCommandArrivals = {}
 
 tProtoPerms = {
 	[1] = {
@@ -106,7 +107,7 @@ tProtoPerms = {
 tCommandArrivals = {
 	--[[ --replace with bitmasks
 		Guide to tProtoPerms:
-			1 == Op only command. 
+			1 == Op only command.
 			2 == All
 			3 == Reg-only
 			4 == Generic Multi-dimension (for source/target commands)
@@ -316,6 +317,18 @@ tCommandArrivals = {
 	},
 }
 
+setmetatable(tCommandArrivals, {
+	__index = { --this creates command aliases. The syntax is self-explanatory. It's fairly fool-proof, give it a shot.
+		js = tCommandArrivals.joinstatus,
+		chjm = tCommandArrivals.chjoinmsg,
+		br = tCommandArrivals.banreason,
+		qr = tCommandArrivals.qreg,
+		as = tCommandArrivals.aliasstatus,
+		ka = tCommandArrivals.killalias,
+		b = tCommandArrivals.broad,
+	},
+})
+
 --Welcome Bot commands
 
 function tCommandArrivals.joinmsg:Action(tUser, sMsg)
@@ -477,6 +490,8 @@ function tCommandArrivals.ssgo:Action(tUser, sMsg)
 	end
 end
 
+tCommandArrivals.go.subroutine = tCommandArrivals.ssgo.Action
+
 function tCommandArrivals.go:Action(tUser, sMsg)
 	if #sMsg > 1 then
 		local ret = { self:subroutine(tCommandArrivals.ssgo, tUser, sMsg) }
@@ -486,8 +501,6 @@ function tCommandArrivals.go:Action(tUser, sMsg)
 		return true, "*** Please specify the nick parameter: !go <nick>\124"
 	end
 end
-
-tCommandArrivals.go.subroutine = tCommandArrivals.ssgo.Action
 
 function tCommandArrivals.mmreg:Action(tUser, sMsg)
 	if #sMsg > 1 then
@@ -1209,3 +1222,5 @@ function tCommandArrivals.killalias:Action(tUser, sMsg)
 			"*** Syntax error in command, please type " .. tSettings[1]:sub(4, 4) .. "killalias <nick or Alias>.|"
 	end
 end
+
+return tCommandsArrivals
